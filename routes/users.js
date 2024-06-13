@@ -1,19 +1,15 @@
-export default router;
-/**
- * Sign in a user
- * POST /users/signin
- */
-router.post('/signin', async(req, res) => {
-    // check if user exist
-    // check if passwords are a match
-    // req.body.password === user.password
+const { Router } = require('express');
+const userController = require('../controllers/users.js');
+const router = Router();
 
-    const user = await collection.findOne(req.body.email)
-    if (!user) {
-        res.send('User not found')
-    }
-    if (req.body.password !== user.password) {
-        res.send('User not found')
-    }
+router.post('/', userController.createUser);
 
-    res.send(user);
+router.get('/', userController.getAllUsers);
+
+router.get('/:id', userController.getUserById);
+
+router.put('/:id', userController.updateUser);
+
+router.delete('/:id', userController.deleteUser);
+
+module.exports = router;
